@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      person: [],
+      loading: true,
+    };
+    this.handleChangeTitle = this.handleChangeTitle.bind(this);
+    this.handleChangeBody = this.handleChangeBody.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChangeTitle(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  handleChangeBody(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  async componentDidMount() {
+    const response = await fetch("http://localhost:9000/mongo");
+    const data = await response.json();
+    console.log(data);
+    this.setState({ person: data, loading: false });
+  }
+
+  render() {
+    if (this.state.loading === true) {
+      return <div>Loading....</div>;
+    } else {
+      return (
+        <div>
+          <form action="http://localhost:9000/saveData" method="GET">
+            <input
+              type="text"
+              onChange={this.handleChangeTitle}
+              name="myTitle"
+            />
+            <br />
+            <input type="text" onChange={this.handleChangeBody} name="myBody" />
+            <br />
+            <input type="submit" value="save" />
+          </form>
+          <p>{this.state.person[1].body}</p>
+        </div>
+      );
+    }
+  }
 }
 
 export default App;
