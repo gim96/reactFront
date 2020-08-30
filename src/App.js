@@ -21,7 +21,9 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const response = await fetch("http://100.26.223.255/:9000/mongo");
+    const response = await fetch(
+      "http://ec2-100-26-223-255.compute-1.amazonaws.com:9000/mongo"
+    );
     const data = await response.json();
     console.log(data);
     this.setState({ person: data, loading: false });
@@ -33,7 +35,10 @@ class App extends Component {
     } else {
       return (
         <div>
-          <form action="http://100.26.223.255/:9000/saveData" method="GET">
+          <form
+            action="http://ec2-100-26-223-255.compute-1.amazonaws.com:9000/saveData"
+            method="GET"
+          >
             <input
               type="text"
               onChange={this.handleChangeTitle}
