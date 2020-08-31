@@ -22,7 +22,7 @@ class App extends Component {
 
   async componentDidMount() {
     const response = await fetch(
-      "http://ec2-100-26-223-255.compute-1.amazonaws.com:9000/mongo"
+      "http://ec2-54-144-151-52.compute-1.amazonaws.com:9000/mongo"
     );
     const data = await response.json();
     console.log(data);
@@ -36,7 +36,7 @@ class App extends Component {
       return (
         <div>
           <form
-            action="http://ec2-100-26-223-255.compute-1.amazonaws.com:9000/saveData"
+            action="http://ec2-54-144-151-52.compute-1.amazonaws.com:9000/saveData"
             method="GET"
           >
             <input
